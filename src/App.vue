@@ -1,29 +1,54 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+    <header class="header">
+      <div class="logo">
+        <router-link to="/">VeloShop</router-link>
+      </div>
+      <Search></Search>
+      <Cart></Cart>
+
+    </header>
   </div>
 </template>
 
 <style lang="scss">
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: "Open Sans", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
 }
-#nav {
-  padding: 30px;
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-    &.router-link-exact-active {
-      color: #42b983;
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 30px;
+
+  .logo {
+    a {
+      text-decoration: none;
+      color: #3cc3b5;
+      font: 400 48px "Lobster";
+
+      &:hover {
+        color: darken($color: #3cc3b5, $amount: 5%);
+      }
     }
   }
 }
 </style>
+
+
+
+<script>
+import Search from '@/components/Search.vue';
+import Cart from '@/components/Cart.vue';
+export default {
+  name: "app",
+  components: {
+    Search,
+    Cart,
+  }
+};
+</script>
