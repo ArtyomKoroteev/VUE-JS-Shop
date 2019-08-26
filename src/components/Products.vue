@@ -19,11 +19,17 @@
 import { mapGetters, mapActions } from "vuex";
 export default {
   name: "Products",
-  computed: mapGetters(["allProducts"]),
-  methods: mapActions(["getProducts"]),
+    computed: mapGetters(['allProducts']),
+    methods: mapActions(['getProducts']),
   mounted() {
-    this.$store.dispatch("getProducts");
-  }
+    // this.$store.dispatch("getProducts");
+    this.getProducts();
+  },
+//   computed: {
+//     allProducts() {
+//       return this.$store.getters.allProducts;
+//     }
+//   }
 };
 </script>
 
