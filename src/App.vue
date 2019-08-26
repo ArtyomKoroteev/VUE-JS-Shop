@@ -6,8 +6,8 @@
       </div>
       <Search></Search>
       <Cart></Cart>
-
     </header>
+    <router-view/>
   </div>
 </template>
 
