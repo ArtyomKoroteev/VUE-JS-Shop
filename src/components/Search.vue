@@ -3,7 +3,7 @@
     <div class="input-wrapper">
       <label for="search">
         Search
-        <input type="search" name="search" id="search" placeholder="Type here" />
+        <input type="search" name="search" id="search" placeholder="Type here"/>
       </label>
       <button id="search-btn">Search</button>
     </div>

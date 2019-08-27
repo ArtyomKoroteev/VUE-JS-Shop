@@ -41,7 +41,7 @@
 
 
 
-<script>
+<script type="text/x-template">
 import Search from '@/components/Search.vue';
 import Cart from '@/components/Cart.vue';
 export default {

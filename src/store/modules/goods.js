@@ -10,7 +10,7 @@ export default {
   },
   actions: {
     getProducts(context) {
-      fetch('http://www.mocky.io/v2/5d63ae4c3200007f00ba1c99')
+      fetch('https://8625794d-609a-4ae2-9a51-c8768b684b2b.mock.pstmn.io/vue-shop')
         .then(response => {
           if (response.status !== 200) {
             return Promise.reject(new Error(response.statusText));
@@ -19,8 +19,11 @@ export default {
         })
         .then(response => response.json())
         .then(response => {
-          console.log(response);
-          context.commit('updateProducts', response);
+          context.commit('updateProducts', response.products);
+        })
+        .catch(error => {
+          alert('oops, something went wrong');
+          throw new Error(error);
         })
     }
   },
