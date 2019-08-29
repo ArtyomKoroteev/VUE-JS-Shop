@@ -3,33 +3,41 @@
     <div class="cards-container">
       <a href="#" class="card" v-for="product in allProducts" :key="product.id">
         <div class="card-image">
-          <img :src="`${product.productImageUrl}`" alt="Cannondale QUICK Disc 5 2019" />
+          <img :src="`${product.productImageUrl}`" :alt="`${product.productName}`" />
         </div>
         <div class="card-stuff-container">
           <a class="card-title" href="#">{{product.productName}}</a>
           <span class="card-price">{{product.productPrice}}$</span>
-          <button class="buy-btn">Buy now</button>
+          <button class="buy-btn" @click="addToCart(product)">Buy now</button>
         </div>
       </a>
     </div>
   </section>
 </template>
 
-<script type="text/x-template">
-import { mapGetters, mapActions } from "vuex";
+<script>
+import { mapGetters, mapActions } from 'vuex';
+
 export default {
-  name: "Products",
-  computed: mapGetters(["allProducts"]),
-  methods: mapActions(["getProducts"]),
+  name: "products",
+  data() {
+    return {
+      product: {}
+    };
+  },
+  methods: {
+    addToCart(product) {
+      this.$store.commit("cart/updateCart", product);
+    }
+  },
   mounted() {
-    // this.$store.dispatch("getProducts");
-    this.getProducts();
+    this.$store.dispatch("goods/getProducts");
+  },
+  computed: {
+    allProducts() {
+      return this.$store.getters["goods/allProducts"];
+    }
   }
-  //   computed: {
-  //     allProducts() {
-  //       return this.$store.getters.allProducts;
-  //     }
-  //   }
 };
 </script>
 

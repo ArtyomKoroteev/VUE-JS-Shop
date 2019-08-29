@@ -19,17 +19,24 @@
         />
       </svg>
     </button>
-    <div class="modal-mask" v-if="showModal">
+    <div class="modal-mask" v-show="showModal">
       <div class="modal-wrapper">
-        <span class="text-message">Cart is empty</span>
-        <button class="close" @click="showModal=false">Close</button>
+        <div class="product-cart-container" v-for="cartProduct in allCartProducts">
+          <span class="title">{{cartProduct.productName}}</span>
+          <span class="price">{{cartProduct.productPrice}}$</span>
+          <img :src="`${cartProduct.productImageUrl}`" :alt="`${cartProduct.productName}`" />
+        </div>
+
+        <!-- <span class="text-message">Cart is empty</span> -->
+        <button class="close" @click="showModal=false">
+          <span class="line">Close</span>
+        </button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
 export default {
   name: "Cart",
   data() {
@@ -37,7 +44,11 @@ export default {
       showModal: false
     };
   },
-  computed: mapGetters(['allCartProducts']),
+  computed: {
+    allCartProducts() {
+      return this.$store.getters["cart/allCartProducts"];
+    }
+  }
 };
 </script>
 
@@ -45,7 +56,6 @@ export default {
 .cart-container {
   display: flex;
   position: relative;
-  
 
   .cart {
     border: none;
@@ -76,11 +86,54 @@ export default {
     right: 0;
     bottom: 0;
     max-width: 500px;
+    padding: 50px 15px;
     height: 400px;
     border: 1px solid;
-
+    overflow-y: auto;
     background: rgba($color: #ffffff, $alpha: 1);
     transform: translate(-50%, -50%);
+
+    .close {
+      position: fixed;
+      top: 15px;
+      right: 15px;
+      height: 30px;
+      width: 30px;
+      cursor: pointer;
+
+      .line {
+        font-size: 0;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        display: flex;
+
+        &:before {
+          position: absolute;
+          top: 50%;
+          left: 0;
+          content: "";
+          font-size: 18px;
+          width: 30px;
+          height: 2px;
+          background: #000000;
+          transform: translateY(-50%) rotate(45deg);
+        }
+
+        &:after {
+          position: absolute;
+          top: 50%;
+          left: 0;
+          content: "";
+          font-size: 18px;
+          width: 30px;
+          height: 2px;
+          background: #000000;
+          transform: translateY(-50%) rotate(-45deg);
+        }
+      }
+    }
   }
 }
 .cart-icon {

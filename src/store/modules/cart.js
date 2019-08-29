@@ -1,18 +1,16 @@
-/* eslint-disable */
 export default {
-  store: {
+  namespaced: true,
+  state: {
     productCart: [],
   },
-  mutation: {
-
+  mutations: {
+    updateCart(state, product) {
+      state.productCart.push(product);
+    },
   },
   getters: {
-    // allCartProducts(state) {
-    //   console.log(state.productCart);
-    //   return state.productCart;
-    // }
+    allCartProducts(state) {
+      return state.productCart;
+    },
   },
-  action: {
-
-  },
-}
+};
