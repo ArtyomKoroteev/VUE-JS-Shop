@@ -4,8 +4,11 @@ export default {
     productCart: [],
   },
   mutations: {
-    updateCart(state, product) {
+    addToCart(state, product) {
       state.productCart.push(product);
+    },
+    removeFromCart(state, product) {
+      state.productCart.splice(product, 1);
     },
   },
   getters: {

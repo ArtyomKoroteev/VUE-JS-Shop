@@ -9,8 +9,8 @@ export default {
     },
   },
   actions: {
-    getProducts(context) {
-      fetch('https://8625794d-609a-4ae2-9a51-c8768b684b2b.mock.pstmn.io/vue-shop')
+    getProducts(context, key) {
+      fetch(key)
         .then((response) => {
           if (response.status !== 200) {
             return Promise.reject(new Error(response.statusText));

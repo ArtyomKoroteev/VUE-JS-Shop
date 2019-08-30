@@ -19,23 +19,26 @@
 import { mapGetters, mapActions } from 'vuex';
 
 export default {
-  name: "products",
+  name: 'products',
   data() {
     return {
-      product: {}
+      product: {},
+      API_KEY: 'https://8625794d-609a-4ae2-9a51-c8768b684b2b.mock.pstmn.io/vue-shop',
     };
   },
   methods: {
     addToCart(product) {
-      this.$store.commit("cart/updateCart", product);
+      console.log(product.id);
+      
+      this.$store.commit('cart/addToCart', product);
     }
   },
   mounted() {
-    this.$store.dispatch("goods/getProducts");
+    this.$store.dispatch('goods/getProducts', this.API_KEY);
   },
   computed: {
     allProducts() {
-      return this.$store.getters["goods/allProducts"];
+      return this.$store.getters['goods/allProducts'];
     }
   }
 };
@@ -104,6 +107,7 @@ export default {
         padding: 10px 15px;
         width: 100%;
         cursor: pointer;
+        position: relative;
 
         &:hover {
           background: darken($color: #3cc3b5, $amount: 10%);

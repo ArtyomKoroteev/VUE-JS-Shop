@@ -1,6 +1,7 @@
 <template>
   <div class="cart-container">
     <button class="cart" @click="showModal=true">
+      <span class="cart-proudct-counter">{{allCartProducts.length}}</span>
       <svg class="cart-icon" viewBox="0 -36 512.001 512" xmlns="http://www.w3.org/2000/svg">
         <path
           d="m256 219.988281c5.519531 0 10-4.480469 10-10s-4.480469-10-10-10-10 4.480469-10 10 4.480469 10 10 10zm0 0"
@@ -21,10 +22,21 @@
     </button>
     <div class="modal-mask" v-show="showModal">
       <div class="modal-wrapper">
-        <div class="product-cart-container" v-for="cartProduct in allCartProducts">
-          <span class="title">{{cartProduct.productName}}</span>
-          <span class="price">{{cartProduct.productPrice}}$</span>
-          <img :src="`${cartProduct.productImageUrl}`" :alt="`${cartProduct.productName}`" />
+        <div class="product-cart-container" v-for="cartProduct, index in allCartProducts">
+          <div class="product-image">
+            <img :src="`${cartProduct.productImageUrl}`" :alt="`${cartProduct.productName}`" />
+          </div>
+          <div class="product-info-block">
+            <span class="title">{{cartProduct.productName}}</span>
+            <span class="price">
+              Price:
+              <span class="number">{{cartProduct.productPrice}}$</span>
+            </span>
+            <span class="totla-price">Total Price:</span>
+          </div>
+          <button class="remove-from-cart" @click="removeFromCart(index)">
+            <span class="line">remove</span>
+          </button>
         </div>
 
         <!-- <span class="text-message">Cart is empty</span> -->
@@ -41,8 +53,14 @@ export default {
   name: "Cart",
   data() {
     return {
-      showModal: false
+      showModal: false,
+      cartLength: Number
     };
+  },
+  methods: {
+    removeFromCart(product) {
+      this.$store.commit("cart/removeFromCart", product);
+    }
   },
   computed: {
     allCartProducts() {
@@ -62,9 +80,25 @@ export default {
     background: transparent;
     widows: 44px;
     height: 44px;
+    position: relative;
     cursor: pointer;
     &:hover {
       opacity: 0.8;
+    }
+
+    .cart-proudct-counter {
+      position: absolute;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      right: -5px;
+      top: -1px;
+      color: #fff;
+      font-weight: bold;
+      background: #3cc3b5;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
     }
   }
 
@@ -140,5 +174,91 @@ export default {
   height: 30px;
   width: 30px;
   fill: #3cc3b5;
+}
+
+.product-cart-container {
+  display: flex;
+  margin-bottom: 25px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid;
+  position: relative;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  .remove-from-cart {
+    height: 25px;
+    width: 25px;
+    cursor: pointer;
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+
+    &:hover {
+      background: red;
+    }
+
+    .line {
+      font-size: 0;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 50%;
+      display: flex;
+      transform: translateX(-50%);
+
+      &:before {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        content: "";
+        font-size: 18px;
+        width: 20px;
+        height: 2px;
+        background: #000000;
+        transform: translateY(-50%) rotate(45deg);
+      }
+
+      &:after {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        content: "";
+        font-size: 18px;
+        width: 20px;
+        height: 2px;
+        background: #000000;
+        transform: translateY(-50%) rotate(-45deg);
+      }
+    }
+  }
+
+  .product-image {
+    margin-right: 20px;
+    img {
+      max-width: 200px;
+    }
+  }
+
+  .product-info-block {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    .title {
+      display: block;
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+    .price {
+      margin-bottom: 15px;
+      .number {
+        font-weight: bold;
+      }
+    }
+  }
 }
 </style>
