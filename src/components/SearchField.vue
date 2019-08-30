@@ -12,7 +12,7 @@
 
 <script>
 export default {
-  name: "Search"
+  name: 'search-field',
 };
 </script>
 

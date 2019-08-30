@@ -22,9 +22,10 @@
     </button>
     <div class="modal-mask" v-show="showModal">
       <div class="modal-wrapper">
-        <div class="product-cart-container" v-for="cartProduct, index in allCartProducts">
+        <div v-if="allCartProducts.length >0">
+        <div class="product-cart-container" v-for="(cartProduct, index) in allCartProducts" :key="cartProduct.id">
           <div class="product-image">
-            <img :src="`${cartProduct.productImageUrl}`" :alt="`${cartProduct.productName}`" />
+            <img :src = "`${cartProduct.productImageUrl}`" :alt= "`${cartProduct.productName}`" />
           </div>
           <div class="product-info-block">
             <span class="title">{{cartProduct.productName}}</span>
@@ -38,8 +39,9 @@
             <span class="line">remove</span>
           </button>
         </div>
+        </div>
 
-        <!-- <span class="text-message">Cart is empty</span> -->
+        <span v-else class="text-message">Cart is empty</span>
         <button class="close" @click="showModal=false">
           <span class="line">Close</span>
         </button>
@@ -50,23 +52,23 @@
 
 <script>
 export default {
-  name: "Cart",
+  name: 'cart-holder',
   data() {
     return {
       showModal: false,
-      cartLength: Number
+      cartLength: Number,
     };
   },
   methods: {
     removeFromCart(product) {
-      this.$store.commit("cart/removeFromCart", product);
-    }
+      this.$store.commit('cart/removeFromCart', product);
+    },
   },
   computed: {
     allCartProducts() {
-      return this.$store.getters["cart/allCartProducts"];
-    }
-  }
+      return this.$store.getters['cart/allCartProducts'];
+    },
+  },
 };
 </script>
 

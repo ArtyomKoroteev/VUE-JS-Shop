@@ -2,18 +2,18 @@
   <div class="home">
     <div class="wrapper">
       <AsideFilter></AsideFilter>
-      <Products></Products>
+      <ProductItems></ProductItems>
     </div>
   </div>
 </template>
 
 <script>
-import Products from '@/components/Products.vue';
+import ProductItems from '@/components/ProductItems.vue';
 import AsideFilter from '@/components/AsideFilter.vue';
 export default {
-  name: "home",
+  name: 'home',
   components: {
-    Products,
+    ProductItems,
     AsideFilter,
   }
 };

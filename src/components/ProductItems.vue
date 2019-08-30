@@ -1,7 +1,7 @@
 <template>
   <section class="product-section">
     <div class="cards-container">
-      <a href="#" class="card" v-for="product in allProducts" :key="product.id">
+      <a href="#" class="card" v-for="(product) in allProducts" :key="product.id">
         <div class="card-image">
           <img :src="`${product.productImageUrl}`" :alt="`${product.productName}`" />
         </div>
@@ -19,17 +19,16 @@
 import { mapGetters, mapActions } from 'vuex';
 
 export default {
-  name: 'products',
+  name: 'product-items',
   data() {
     return {
       product: {},
-      API_KEY: 'https://8625794d-609a-4ae2-9a51-c8768b684b2b.mock.pstmn.io/vue-shop',
+      // API_KEY: 'https://8625794d-609a-4ae2-9a51-c8768b684b2b.mock.pstmn.io/vue-shop',
+      API_KEY: 'http://www.mocky.io/v2/5d6943a63300002761b689b4',
     };
   },
   methods: {
-    addToCart(product) {
-      console.log(product.id);
-      
+    addToCart(product, index) {          
       this.$store.commit('cart/addToCart', product);
     }
   },

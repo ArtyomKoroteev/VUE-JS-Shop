@@ -4,8 +4,8 @@
       <div class="logo">
         <router-link to="/">VeloShop</router-link>
       </div>
-      <Search></Search>
-      <Cart></Cart>
+      <SearchField></SearchField>
+      <CartHolder></CartHolder>
     </header>
     <router-view/>
   </div>
@@ -39,16 +39,14 @@
 }
 </style>
 
-
-
 <script type="text/x-template">
-import Search from '@/components/Search.vue';
-import Cart from '@/components/Cart.vue';
+import SearchField from '@/components/SearchField.vue';
+import CartHolder from '@/components/CartHolder.vue';
 export default {
   name: "app",
   components: {
-    Search,
-    Cart,
+    SearchField,
+    CartHolder,
   }
 };
 </script>
