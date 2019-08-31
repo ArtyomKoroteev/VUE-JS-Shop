@@ -19,8 +19,6 @@ export default {
         })
         .then(response => response.json())
         .then((response) => {
-          console.log(response);
-          
           context.commit('updateProducts', response);
         })
         .catch((error) => {
