@@ -37,8 +37,6 @@ export default {
       value,
       product,
     }) {
-      console.log(value);
-
       const productItem = product;
       if (value > 1) {
         state.totalCartQuantity -= Number(product.productQuantity);
