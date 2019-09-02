@@ -8,7 +8,7 @@
         <div class="card-stuff-container">
           <a class="card-title" href="#">{{product.productName}}</a>
           <span class="card-price">{{product.productPrice}}$</span>
-          <button class="buy-btn" @click="addToCart(product)">Buy now</button>
+          <button class="buy-btn" @click="addToCart(product, product.id)">Buy now</button>
         </div>
       </a>
     </div>
@@ -16,28 +16,28 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import { mapGetters, mapActions } from "vuex";
 
 export default {
-  name: 'product-items',
+  name: "product-items",
   data() {
     return {
       product: {},
       // API_KEY: 'https://8625794d-609a-4ae2-9a51-c8768b684b2b.mock.pstmn.io/vue-shop',
-      API_KEY: 'http://www.mocky.io/v2/5d6943a63300002761b689b4',
+      API_KEY: "http://www.mocky.io/v2/5d6cc8d13000002b008fb831"
     };
   },
   methods: {
-    addToCart(product, index) {          
-      this.$store.commit('cart/addToCart', product);
+    addToCart(product, productId) {
+      this.$store.commit("cart/addToCart", { product, productId });
     }
   },
   mounted() {
-    this.$store.dispatch('goods/getProducts', this.API_KEY);
+    this.$store.dispatch("goods/getProducts", this.API_KEY);
   },
   computed: {
     allProducts() {
-      return this.$store.getters['goods/allProducts'];
+      return this.$store.getters["goods/allProducts"];
     }
   }
 };
@@ -58,6 +58,10 @@ export default {
     text-align: left;
     text-decoration: none;
     overflow: hidden;
+
+    @media screen and (max-width: 1280px){
+      width: 48%;
+    }
 
     &:hover {
       .card-image {
