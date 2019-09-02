@@ -19,7 +19,7 @@ export default {
         })
         .then(response => response.json())
         .then((response) => {
-          context.commit('updateProducts', response);
+          context.commit('updateProducts', response.products);
         })
         .catch((error) => {
           // eslint-disable-next-line no-alert
