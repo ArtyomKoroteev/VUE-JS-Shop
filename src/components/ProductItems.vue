@@ -24,7 +24,7 @@ export default {
     return {
       product: {},
       // API_KEY: 'https://8625794d-609a-4ae2-9a51-c8768b684b2b.mock.pstmn.io/vue-shop',
-      API_KEY: "http://www.mocky.io/v2/5d6943a63300002761b689b4"
+      API_KEY: "http://www.mocky.io/v2/5d6cc8d13000002b008fb831"
     };
   },
   methods: {

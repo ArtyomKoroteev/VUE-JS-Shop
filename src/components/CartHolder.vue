@@ -1,7 +1,7 @@
 <template>
   <div class="cart-container">
     <button class="cart" @click="showModal=true">
-      <span class="cart-proudct-counter">{{allCartProducts.length}}</span>
+      <span class="cart-proudct-counter">{{productsTotalQuantity}}</span>
       <svg class="cart-icon" viewBox="0 -36 512.001 512" xmlns="http://www.w3.org/2000/svg">
         <path
           d="m256 219.988281c5.519531 0 10-4.480469 10-10s-4.480469-10-10-10-10 4.480469-10 10 4.480469 10 10 10zm0 0"
@@ -23,24 +23,50 @@
     <div class="modal-mask" v-show="showModal">
       <div class="modal-wrapper">
         <div v-if="allCartProducts.length >0">
-        <div class="product-cart-container" v-for="(cartProduct, index) in allCartProducts" :key="cartProduct.id">
-          <div class="product-image">
-            <img :src = "`${cartProduct.productImageUrl}`" :alt= "`${cartProduct.productName}`" />
+          <div
+            class="product-cart-container"
+            v-for="(cartProduct, index) in allCartProducts"
+            :key="cartProduct.id"
+          >
+            <div class="product-image">
+              <img :src="`${cartProduct.productImageUrl}`" :alt="`${cartProduct.productName}`" />
+            </div>
+            <div class="product-info-block">
+              <span class="title">{{cartProduct.productName}}</span>
+              <span class="quantity-holder">
+                Quantity:
+                <div class="counter-container">
+                  <button
+                    class="btn minus-btn"
+                    @click="countModification(-1, cartProduct)"
+                  >-</button>
+                  <span class="input-wrap">
+                    <input
+                      type="number"
+                      name="quantity"
+                      id="quantity"
+                      min="1"
+                      :value="`${cartProduct.productQuantity}`"
+                      @change="productsQuantityModificion($event, cartProduct)"
+                    />
+                  </span>
+                  <button class="btn plus-btn" @click="countModification(1, cartProduct)">+</button>
+                </div>
+              </span>
+              <span class="price">
+                Single price:
+                <span class="number">{{cartProduct.productPrice}}$</span>
+              </span>
+              <span class="total-price">
+                Total Price:
+                <span class="number">{{cartProduct.productTotalPrice}}$</span>
+              </span>
+            </div>
+            <button class="remove-from-cart" @click="removeFromCart(index, cartProduct)">
+              <span class="line">remove</span>
+            </button>
           </div>
-          <div class="product-info-block">
-            <span class="title">{{cartProduct.productName}}</span>
-            <span class="price">
-              Price:
-              <span class="number">{{cartProduct.productPrice}}$</span>
-            </span>
-            <span class="totla-price">Total Price:</span>
-          </div>
-          <button class="remove-from-cart" @click="removeFromCart(index)">
-            <span class="line">remove</span>
-          </button>
         </div>
-        </div>
-
         <span v-else class="text-message">Cart is empty</span>
         <button class="close" @click="showModal=false">
           <span class="line">Close</span>
@@ -52,23 +78,40 @@
 
 <script>
 export default {
-  name: 'cart-holder',
+  name: "cart-holder",
   data() {
     return {
       showModal: false,
       cartLength: Number,
+      modificationNumber: Number
     };
   },
   methods: {
-    removeFromCart(product) {
-      this.$store.commit('cart/removeFromCart', product);
+    removeFromCart(productIndex, product) {
+      this.$store.commit("cart/removeFromCart", { productIndex, product });
     },
+    productsQuantityModificion(event, product) {
+      let value = event.target.value;
+      this.$store.commit("cart/productQuantityModification", {
+        value,
+        product
+      });
+    },
+    countModification(btnValue, product) {
+      this.$store.commit("cart/countModification", {
+        btnValue,
+        product
+      });
+    }
   },
   computed: {
     allCartProducts() {
-      return this.$store.getters['cart/allCartProducts'];
+      return this.$store.getters["cart/allCartProducts"];
     },
-  },
+    productsTotalQuantity() {
+      return this.$store.getters["cart/productsTotalQuantity"];
+    }
+  }
 };
 </script>
 
@@ -121,7 +164,7 @@ export default {
     left: 50%;
     right: 0;
     bottom: 0;
-    max-width: 500px;
+    max-width: 800px;
     padding: 50px 15px;
     height: 400px;
     border: 1px solid;
@@ -178,6 +221,23 @@ export default {
   fill: #3cc3b5;
 }
 
+.input-wrap {
+  input {
+    width: 50px;
+    text-align: center;
+  }
+}
+
+.text-message {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 32px;
+  font-weight: bold;
+  font-style: italic;
+}
+
 .product-cart-container {
   display: flex;
   margin-bottom: 25px;
@@ -194,7 +254,7 @@ export default {
     width: 25px;
     cursor: pointer;
     position: absolute;
-    right: 20px;
+    right: 2px;
     top: 50%;
     transform: translateY(-50%);
 
@@ -248,17 +308,57 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    padding: 0 40px 0 0;
 
     .title {
       display: block;
       font-size: 20px;
       font-weight: bold;
       margin-bottom: 15px;
+      text-align: left;
     }
-    .price {
-      margin-bottom: 15px;
+    .price,
+    .total-price {
+      margin-bottom: 5px;
       .number {
         font-weight: bold;
+      }
+    }
+
+    .quantity-holder {
+      display: flex;
+      align-items: center;
+      margin: 0 0 10px;
+      .counter-container {
+        padding: 0 0 0 10px;
+        display: flex;
+
+        input {
+          border: 1px solid gray;
+          height: 20px;
+        }
+
+        .btn {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border: none;
+          cursor: pointer;
+          color: #000;
+          font-weight: bold;
+          height: 24px;
+          width: 30px;
+          font-size: 18px;
+          border: 1px solid gray;
+
+          &.minus-btn {
+            border-radius: 50% 0 0 50%;
+          }
+
+          &.plus-btn {
+            border-radius: 0 50% 50% 0;
+          }
+        }
       }
     }
   }
