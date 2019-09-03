@@ -1,6 +1,11 @@
 <template>
   <div class="single-product-container">
-    <div class="product" v-for="product in allProducts" :key="product.id" v-if="productId === product.id">
+    <div
+      class="product"
+      v-for="product in allProducts"
+      :key="product.id"
+      v-if="productId === product.id"
+    >
       <div class="product-image">
         <img :src="`${product.productImageUrl}`" :alt="`${product.productName}`" />
       </div>
@@ -38,31 +43,27 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
 export default {
-  name: "single-product",
+  name: 'single-product',
   data() {
     return {
       productId: this.$route.params.id,
-      title: "details",
-      API_KEY: "http://www.mocky.io/v2/5d6d300c30000058008fbade"
+      title: 'details',
+      API_KEY: 'http://www.mocky.io/v2/5d6d300c30000058008fbade',
     };
   },
   methods: {
     addToCart(product, productId) {
-      this.$store.commit("cart/addToCart", { product, productId });
+      this.$store.commit('cart/addToCart', { product, productId });
     },
-    fetchproduct() {
-      allProducts();
-    }
   },
   computed: {
     allProducts() {
-      return this.$store.getters["goods/allProducts"];
-    }
+      return this.$store.getters['goods/allProducts'];
+    },
   },
   mounted() {
-    this.$store.dispatch("goods/getProducts", this.API_KEY);
+    this.$store.dispatch('goods/getProducts', this.API_KEY);
   },
 };
 </script>

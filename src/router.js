@@ -26,7 +26,6 @@ const router = new Router({
       component: SingleProduct,
       afterEach() {
        showModal = false;
-       
       },
     },
   ],

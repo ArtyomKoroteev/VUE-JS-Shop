@@ -3,16 +3,22 @@
     <div class="input-wrapper">
       <label for="search">
         Search
-        <input type="search" name="search" id="search" placeholder="Type here"/>
+        <input type="search" name="search" id="search" placeholder="Type here" v-model.lazy="searchValue"/>
       </label>
       <button id="search-btn">Search</button>
     </div>
+    <div class="value">{{searchValue}}</div>
   </form>
 </template>
 
 <script>
 export default {
   name: 'search-field',
+    data() {
+    return {
+      searchValue: '',
+    };
+  },
 };
 </script>
 
@@ -25,7 +31,7 @@ export default {
   label {
     font-size: 0;
   }
-  input {
+  #search {
     color: #cbcbcb;
     border: 1px solid #3cc3b5;
     border-radius: 25px 0 0 25px;
