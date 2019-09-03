@@ -7,7 +7,7 @@
       <SearchField></SearchField>
       <CartHolder></CartHolder>
     </header>
-    <router-view/>
+    <router-view />
   </div>
 </template>
 
@@ -18,6 +18,20 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+}
+.buy-btn {
+  background: #3cc3b5;
+  border: none;
+  color: #fff;
+  padding: 10px 15px;
+  max-width: 300px;
+  width: 100%;
+  cursor: pointer;
+  position: relative;
+
+  &:hover {
+    background: darken($color: #3cc3b5, $amount: 10%);
+  }
 }
 .header {
   display: flex;
@@ -40,13 +54,13 @@
 </style>
 
 <script type="text/x-template">
-import SearchField from '@/components/SearchField.vue';
-import CartHolder from '@/components/CartHolder.vue';
+import SearchField from "@/components/SearchField.vue";
+import CartHolder from "@/components/CartHolder.vue";
 export default {
   name: "app",
   components: {
     SearchField,
-    CartHolder,
+    CartHolder
   }
 };
 </script>

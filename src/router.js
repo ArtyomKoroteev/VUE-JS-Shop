@@ -4,10 +4,12 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import Home from './views/Home.vue';
 import SingleProduct from './views/SingleProduct.vue';
+import store from './store/store';
 
 Vue.use(Router);
 
-export default new Router({
+const router = new Router({
+  
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
@@ -20,11 +22,14 @@ export default new Router({
       path: '/product/:id',
       name: 'product',
       props: true,
+      params: true,
       component: SingleProduct,
-    }
+      afterEach() {
+       showModal = false;
+       
+      },
+    },
   ],
-});
+})
 
-
-// router.afterEach(to, from,  )
-
+export default router;

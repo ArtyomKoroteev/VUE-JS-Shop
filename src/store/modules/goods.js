@@ -2,6 +2,7 @@ export default {
   namespaced: true,
   state: {
     products: [],
+    routerHistory: [],
   },
   mutations: {
     updateProducts(state, products) {
@@ -32,9 +33,5 @@ export default {
     allProducts(state) {
       return state.products;
     },
-    // allCartProducts(state) {
-    //   console.log(state.productCart);
-    //   return state.productCart;
-    // }
   },
 };

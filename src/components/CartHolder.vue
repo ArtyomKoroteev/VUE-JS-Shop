@@ -32,7 +32,7 @@
               <img :src="`${cartProduct.productImageUrl}`" :alt="`${cartProduct.productName}`" />
             </div>
             <div class="product-info-block">
-              <span class="title">{{cartProduct.productName}}</span>
+              <router-link :to="{ name: 'product', params: {showModalRedirect:false, id: cartProduct.id}, props: { showModal: false }}" @click="showModal=true" class="title">{{cartProduct.productName}}</router-link>
               <span class="quantity-holder">
                 Quantity:
                 <div class="counter-container">
@@ -111,7 +111,10 @@ export default {
     productsTotalQuantity() {
       return this.$store.getters["cart/productsTotalQuantity"];
     }
-  }
+  },
+   mounted() {
+    this.showModal = false;
+   }
 };
 </script>
 

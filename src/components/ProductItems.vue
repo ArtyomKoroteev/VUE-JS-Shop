@@ -6,12 +6,14 @@
           <img :src="`${product.productImageUrl}`" :alt="`${product.productName}`" />
         </div>
         <div class="card-stuff-container">
-          <span @click="goToProduct(product.id)" class="card-title">{{product.productName}}</span>
+          <router-link
+            :to="{ name: 'product', params: {singleProduct: product, id: product.id}}"
+            class="card-title"
+          >{{product.productName}}</router-link>
           <span class="card-price">{{product.productPrice}}$</span>
           <button class="buy-btn" @click="addToCart(product, product.id)">Buy now</button>
         </div>
       </div>
-      <router-view />
     </div>
   </section>
 </template>
@@ -26,7 +28,8 @@ export default {
       product: {},
       // API_KEY: 'https://8625794d-609a-4ae2-9a51-c8768b684b2b.mock.pstmn.io/vue-shop',
       API_KEY: "http://www.mocky.io/v2/5d6d300c30000058008fbade",
-      title: "product"
+      title: "product",
+      showModal: false,
     };
   },
   methods: {
@@ -106,20 +109,6 @@ export default {
         font-weight: bold;
         font-size: 18px;
         margin: 0 0 15px;
-      }
-
-      .buy-btn {
-        background: #3cc3b5;
-        border: none;
-        color: #fff;
-        padding: 10px 15px;
-        width: 100%;
-        cursor: pointer;
-        position: relative;
-
-        &:hover {
-          background: darken($color: #3cc3b5, $amount: 10%);
-        }
       }
     }
   }
