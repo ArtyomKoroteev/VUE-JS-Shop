@@ -49,7 +49,8 @@ export default {
     return {
       productId: this.$route.params.id,
       title: 'details',
-      API_KEY: 'http://www.mocky.io/v2/5d6d300c30000058008fbade',
+      // API_KEY: 'http://www.mocky.io/v2/5d6d300c30000058008fbade',
+      API_KEY: 'http://localhost:3000/shop',
     };
   },
   methods: {

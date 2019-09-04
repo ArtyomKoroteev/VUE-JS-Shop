@@ -51,6 +51,7 @@
     display: flex;
     text-align: left;
     margin-bottom: 20px;
+    border-color: #3cc3b5;
 
     .group-title {
       font-size: 22px;

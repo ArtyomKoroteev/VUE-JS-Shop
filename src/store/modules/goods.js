@@ -11,7 +11,11 @@ export default {
   },
   actions: {
     getProducts(context, key) {
-      fetch(key)
+
+      fetch(key, {
+        method: 'GET',
+
+      })
         .then((response) => {
           if (response.status !== 200) {
             return Promise.reject(new Error(response.statusText));
@@ -24,7 +28,7 @@ export default {
         })
         .catch((error) => {
           // eslint-disable-next-line no-alert
-          alert('oops, something went wrong');
+          // alert('oops, something went wrong');
           throw new Error(error);
         });
     },
