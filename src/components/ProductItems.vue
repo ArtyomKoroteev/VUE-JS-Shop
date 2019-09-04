@@ -1,16 +1,19 @@
 <template>
   <section class="product-section">
     <div class="cards-container">
-      <a href="#" class="card" v-for="(product) in allProducts" :key="product.id">
-        <div class="card-image">
+      <div class="card" v-for="product in allProducts" :key="product.id">
+        <div class="card-image" @click="goToProduct(product.id)">
           <img :src="`${product.productImageUrl}`" :alt="`${product.productName}`" />
         </div>
         <div class="card-stuff-container">
-          <a class="card-title" href="#">{{product.productName}}</a>
+          <router-link
+            :to="{ name: 'product', params: {singleProduct: product, id: product.id}}"
+            class="card-title"
+          >{{product.productName}}</router-link>
           <span class="card-price">{{product.productPrice}}$</span>
           <button class="buy-btn" @click="addToCart(product, product.id)">Buy now</button>
         </div>
-      </a>
+      </div>
     </div>
   </section>
 </template>
@@ -24,12 +27,18 @@ export default {
     return {
       product: {},
       // API_KEY: 'https://8625794d-609a-4ae2-9a51-c8768b684b2b.mock.pstmn.io/vue-shop',
-      API_KEY: "http://www.mocky.io/v2/5d6cc8d13000002b008fb831"
+      // API_KEY: "http://www.mocky.io/v2/5d6d300c30000058008fbade",
+      API_KEY: 'http://localhost:3000/shop',
+      title: "product",
+      showModal: false,
     };
   },
   methods: {
     addToCart(product, productId) {
       this.$store.commit("cart/addToCart", { product, productId });
+    },
+    goToProduct(productId) {
+      this.$router.push({name:'product', params:{id:productId}})
     }
   },
   mounted() {
@@ -59,7 +68,7 @@ export default {
     text-decoration: none;
     overflow: hidden;
 
-    @media screen and (max-width: 1280px){
+    @media screen and (max-width: 1280px) {
       width: 48%;
     }
 
@@ -101,20 +110,6 @@ export default {
         font-weight: bold;
         font-size: 18px;
         margin: 0 0 15px;
-      }
-
-      .buy-btn {
-        background: #3cc3b5;
-        border: none;
-        color: #fff;
-        padding: 10px 15px;
-        width: 100%;
-        cursor: pointer;
-        position: relative;
-
-        &:hover {
-          background: darken($color: #3cc3b5, $amount: 10%);
-        }
       }
     }
   }

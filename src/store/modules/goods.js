@@ -2,6 +2,7 @@ export default {
   namespaced: true,
   state: {
     products: [],
+    routerHistory: [],
   },
   mutations: {
     updateProducts(state, products) {
@@ -10,7 +11,11 @@ export default {
   },
   actions: {
     getProducts(context, key) {
-      fetch(key)
+
+      fetch(key, {
+        method: 'GET',
+
+      })
         .then((response) => {
           if (response.status !== 200) {
             return Promise.reject(new Error(response.statusText));
@@ -19,11 +24,11 @@ export default {
         })
         .then(response => response.json())
         .then((response) => {
-          context.commit('updateProducts', response);
+          context.commit('updateProducts', response.products);
         })
         .catch((error) => {
           // eslint-disable-next-line no-alert
-          alert('oops, something went wrong');
+          // alert('oops, something went wrong');
           throw new Error(error);
         });
     },
@@ -32,9 +37,5 @@ export default {
     allProducts(state) {
       return state.products;
     },
-    // allCartProducts(state) {
-    //   console.log(state.productCart);
-    //   return state.productCart;
-    // }
   },
 };

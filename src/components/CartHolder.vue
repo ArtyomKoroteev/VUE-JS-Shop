@@ -1,7 +1,7 @@
 <template>
   <div class="cart-container">
     <button class="cart" @click="showModal=true">
-      <span class="cart-proudct-counter">{{productsTotalQuantity}}</span>
+      <span class="cart-product-counter">{{productsTotalQuantity}}</span>
       <svg class="cart-icon" viewBox="0 -36 512.001 512" xmlns="http://www.w3.org/2000/svg">
         <path
           d="m256 219.988281c5.519531 0 10-4.480469 10-10s-4.480469-10-10-10-10 4.480469-10 10 4.480469 10 10 10zm0 0"
@@ -36,10 +36,7 @@
               <span class="quantity-holder">
                 Quantity:
                 <div class="counter-container">
-                  <button
-                    class="btn minus-btn"
-                    @click="countModification(-1, cartProduct)"
-                  >-</button>
+                  <button class="btn minus-btn" @click="countModification(-1, cartProduct)">-</button>
                   <span class="input-wrap">
                     <input
                       type="number"
@@ -78,40 +75,40 @@
 
 <script>
 export default {
-  name: "cart-holder",
+  name: 'cart-holder',
   data() {
     return {
       showModal: false,
       cartLength: Number,
-      modificationNumber: Number
+      modificationNumber: Number,
     };
   },
   methods: {
     removeFromCart(productIndex, product) {
-      this.$store.commit("cart/removeFromCart", { productIndex, product });
+      this.$store.commit('cart/removeFromCart', { productIndex, product });
     },
     productsQuantityModificion(event, product) {
-      let value = event.target.value;
-      this.$store.commit("cart/productQuantityModification", {
+      const value = event.target.value;
+      this.$store.commit('cart/productQuantityModification', {
         value,
-        product
+        product,
       });
     },
     countModification(btnValue, product) {
-      this.$store.commit("cart/countModification", {
+      this.$store.commit('cart/countModification', {
         btnValue,
-        product
+        product,
       });
-    }
+    },
   },
   computed: {
     allCartProducts() {
-      return this.$store.getters["cart/allCartProducts"];
+      return this.$store.getters['cart/allCartProducts'];
     },
     productsTotalQuantity() {
-      return this.$store.getters["cart/productsTotalQuantity"];
-    }
-  }
+      return this.$store.getters['cart/productsTotalQuantity'];
+    },
+  },
 };
 </script>
 
@@ -131,7 +128,7 @@ export default {
       opacity: 0.8;
     }
 
-    .cart-proudct-counter {
+    .cart-product-counter {
       position: absolute;
       display: flex;
       align-items: center;
