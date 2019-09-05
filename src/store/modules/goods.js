@@ -11,7 +11,6 @@ export default {
   },
   actions: {
     getProducts(context, key) {
-
       fetch(key, {
         method: 'GET',
 
