@@ -9,19 +9,31 @@
             name="mounting"
             id="mounting"
             value="mounting"
-            v-model="filterData.type"
+            v-model="filterData.productType"
           />
           Mounting
         </label>
         <label for="city">
-          <input type="checkbox" name="city" id="city" value="city" v-model="filterData.type" />
+          <input
+            type="checkbox"
+            name="city"
+            id="city"
+            value="city"
+            v-model="filterData.productType"
+          />
           City
         </label>
       </fieldset>
       <fieldset class="group-wrapper">
         <legend class="group-title">Gender</legend>
         <label for="male">
-          <input type="checkbox" name="male" id="male" value="male" v-model="filterData.gender" />
+          <input
+            type="checkbox"
+            name="male"
+            id="male"
+            value="male"
+            v-model="filterData.productGender"
+          />
           Male
         </label>
         <label for="female">
@@ -30,7 +42,7 @@
             name="female"
             id="female"
             value="female"
-            v-model="filterData.gender"
+            v-model="filterData.productGender"
           />
           Female
         </label>
@@ -43,7 +55,7 @@
             name="26inch"
             id="26inch"
             value="26"
-            v-model="filterData.wheelSize"
+            v-model="filterData.productWheelSize"
           />
           26 inch
         </label>
@@ -53,7 +65,7 @@
             name="27inch"
             id="27inch"
             value="27"
-            v-model="filterData.wheelSize"
+            v-model="filterData.productWheelSize"
           />
           27 inch
         </label>
@@ -63,13 +75,12 @@
             name="28inch"
             id="28inch"
             value="28"
-            v-model="filterData.wheelSize"
+            v-model="filterData.productWheelSize"
           />
           28 inch
         </label>
       </fieldset>
     </form>
-    <span>{{filterData}}</span>
   </aside>
 </template>
 
@@ -78,43 +89,56 @@ export default {
   name: "AsideFilter",
   data() {
     return {
-      url: "http://localhost:3000",
+      url: "http://localhost:3000/shop",
       API_KEY: ``,
       filterData: {
-        gender: [],
-        type: [],
-        wheelSize: [],
-        options: '',
+        productType: [],
+        productGender: [],
+        productWheelSize: []
       }
     };
   },
   methods: {
     getRequest(options) {
-      console.log(this.filterData);
-      this.API_KEY = `${this.url}?${this.filterData.options}`
+      this.API_KEY = `${this.url}${options}`;
+      console.log(this.API_KEY);
+
       fetch(this.API_KEY)
         .then(response => {
           if (response.status !== 200) {
-            return Promise.reject(new Error(response.statusText));
+            new Error(response.statusText);
           }
           return Promise.resolve(response);
         })
         // .then(response => response.json())
         .then(response => {
-          console.log(response);
+          return response;
         });
     }
   },
   watch: {
     filterData: {
-      handler: (data) => {
-        data.options = `type='${data.type}'&gender=${data.gender}&wheelSize=${data.wheelSize}`;
+      handler: function(data) {
+        let query = [];
+        let options = "";
+
+        for (const key in data) {
+          if (data[key].length !== 0) {
+            for (let index = 0; index < data[key].length; index++) {
+              query.push(`${key}=${data[key][index]}`);
+            }
+          }
+          options = `?${query.join("&")}`;
+        }
+
+        if (query.length === 0) {
+          options = "";
+        }
+
+        this.getRequest(options);
       },
       deep: true
     }
-  },
-  updated() {
-    this.getRequest(this.filterData);
   }
 };
 </script>
