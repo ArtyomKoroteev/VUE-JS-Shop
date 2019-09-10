@@ -101,19 +101,21 @@ export default {
   methods: {
     getRequest(options) {
       this.API_KEY = `${this.url}${options}`;
-      console.log(this.API_KEY);
+      return this.API_KEY;
+      // console.log(this.API_KEY);
 
-      fetch(this.API_KEY)
-        .then(response => {
-          if (response.status !== 200) {
-            new Error(response.statusText);
-          }
-          return Promise.resolve(response);
-        })
-        // .then(response => response.json())
-        .then(response => {
-          return response;
-        });
+      // fetch(this.API_KEY)
+      //   .then(response => {
+      //     if (response.status !== 200) {
+      //       new Error(response.statusText);
+      //     }
+      //     return Promise.resolve(response);
+      //   })
+      //   .then(response => response.json())
+      //   .then(response => {
+      //     console.log(response.products);
+
+      //   });
     }
   },
   watch: {
@@ -139,6 +141,9 @@ export default {
       },
       deep: true
     }
+  },
+  updated() {
+    this.$store.dispatch("goods/getProducts", this.API_KEY);
   }
 };
 </script>

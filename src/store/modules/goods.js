@@ -2,7 +2,7 @@ export default {
   namespaced: true,
   state: {
     products: [],
-    routerHistory: [],
+    // routerHistory: [],
   },
   mutations: {
     updateProducts(state, products) {
@@ -13,7 +13,6 @@ export default {
     getProducts(context, key) {
       fetch(key, {
         method: 'GET',
-
       })
         .then((response) => {
           if (response.status !== 200) {
@@ -23,7 +22,9 @@ export default {
         })
         .then(response => response.json())
         .then((response) => {
+          // setTimeout(() => {
           context.commit('updateProducts', response.products);
+          // }, 300);
         })
         .catch((error) => {
           // eslint-disable-next-line no-alert
