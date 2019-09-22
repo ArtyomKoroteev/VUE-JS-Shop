@@ -14,7 +14,7 @@
 <script>
 export default {
   name: 'search-field',
-    data() {
+  data() {
     return {
       searchValue: '',
     };
