@@ -1,9 +1,11 @@
 <template>
   <form action="#" class="search-form">
     <div class="input-wrapper">
+      <span>{{result}}</span>
       <label for="search">
         Search
-        <input type="search" name="search" id="search" placeholder="Type here" v-model.lazy="searchValue"/>
+        <input type="search" name="text" id="search" v-model="value" value="result" @input="formatNumber($event.target.value)" placeholder="Type here"/>
+
       </label>
       <button id="search-btn">Search</button>
     </div>
@@ -17,7 +19,19 @@ export default {
   data() {
     return {
       searchValue: '',
+      value: '',
+      result: '',
     };
+  },
+  methods: {
+    formatNumber(event) {
+      this.result = Number(event).toFixed(2).replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, '$1,');
+      console.log(this.result);
+      return this.result;
+    },
+  },
+  beforeUpdate() {
+    this.formatNumber(this.value);
   },
 };
 </script>
