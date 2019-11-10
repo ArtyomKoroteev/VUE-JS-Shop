@@ -4,8 +4,13 @@
       <span>{{result}}</span>
       <label for="search">
         Search
-        <input type="search" name="text" id="search" v-model="value" value="result" @input="formatNumber($event.target.value)" placeholder="Type here"/>
-
+        <input type="search"
+               name="text"
+               value="result"
+               id="search"
+               placeholder="Type here"
+               v-model="value"
+               @input="formatNumber($event.target.value)"/>
       </label>
       <button id="search-btn">Search</button>
     </div>

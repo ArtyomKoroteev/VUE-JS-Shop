@@ -123,40 +123,40 @@
 
 <script>
 export default {
-  name: 'cart-holder',
+  name: "cart-holder",
   data() {
     return {
       showModal: false,
       cartLength: Number,
-      modificationNumber: Number,
+      modificationNumber: Number
     };
   },
   methods: {
     removeFromCart(productIndex, product) {
-      this.$store.commit('cart/removeFromCart', { productIndex, product });
+      this.$store.commit("cart/removeFromCart", { productIndex, product });
     },
     productsQuantityModificion(event, product) {
       const { value } = event.target;
-      this.$store.commit('cart/productQuantityModification', {
+      this.$store.commit("cart/productQuantityModification", {
         value,
-        product,
+        product
       });
     },
     countModification(btnValue, product) {
-      this.$store.commit('cart/countModification', {
+      this.$store.commit("cart/countModification", {
         btnValue,
-        product,
+        product
       });
-    },
+    }
   },
   computed: {
     allCartProducts() {
-      return this.$store.getters['cart/allCartProducts'];
+      return this.$store.getters["cart/allCartProducts"];
     },
     productsTotalQuantity() {
-      return this.$store.getters['cart/productsTotalQuantity'];
-    },
-  },
+      return this.$store.getters["cart/productsTotalQuantity"];
+    }
+  }
 };
 </script>
 
