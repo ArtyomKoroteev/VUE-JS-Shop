@@ -8,11 +8,12 @@
 
 <script>
 import SingleProductItem from '@/components/SingleProductItem.vue';
+
 export default {
   name: 'product',
   components: {
     SingleProductItem,
-  }
+  },
 };
 </script>
 

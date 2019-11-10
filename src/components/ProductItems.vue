@@ -19,54 +19,60 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
 
 export default {
-  name: "product-items",
+  name: 'product-items',
   data() {
     return {
       product: {},
       // API_KEY: 'https://8625794d-609a-4ae2-9a51-c8768b684b2b.mock.pstmn.io/vue-shop',
       // API_KEY: "http://www.mocky.io/v2/5d6d300c30000058008fbade",
       API_KEY: 'http://localhost:3000/shop',
-      title: "product",
+      title: 'product',
       showModal: false,
     };
   },
   methods: {
     addToCart(product, productId) {
-      this.$store.commit("cart/addToCart", { product, productId });
+      this.$store.commit('cart/addToCart', { product, productId });
     },
     goToProduct(productId) {
-      this.$router.push({name:'product', params:{id:productId}})
-    }
+      this.$router.push({ name: 'product', params: { id: productId } });
+    },
   },
   mounted() {
-    this.$store.dispatch("goods/getProducts", this.API_KEY);
+    this.$store.dispatch('goods/getProducts', this.API_KEY);
   },
   computed: {
     allProducts() {
-      return this.$store.getters["goods/allProducts"];
-    }
-  }
+      return this.$store.getters['goods/allProducts'];
+    },
+  },
 };
 </script>
 
 <style lang="scss">
+
+.product-section {
+  width: 100%;
+}
 .cards-container {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
   padding: 0 30px;
   .card {
     width: 31%;
-    margin: 0 0 30px;
+    margin: 0 3.1% 30px 0;
     color: #000;
     border: 1px solid #e4e4e4;
     border-bottom: 4px solid #3cc3b5;
     text-align: left;
     text-decoration: none;
     overflow: hidden;
+
+    &:nth-child(3n+3) {
+      margin: 0 0 30px;
+    }
 
     @media screen and (max-width: 1280px) {
       width: 48%;

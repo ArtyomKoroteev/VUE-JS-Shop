@@ -86,41 +86,29 @@
 
 <script>
 export default {
-  name: "AsideFilter",
+  name: 'AsideFilter',
   data() {
     return {
-      url: "http://localhost:3000/shop",
-      API_KEY: ``,
+      url: 'http://localhost:3000/shop',
+      API_KEY: '',
       filterData: {
         productType: [],
         productGender: [],
-        productWheelSize: []
-      }
+        productWheelSize: [],
+      },
     };
   },
   methods: {
     getRequest(options) {
       this.API_KEY = `${this.url}${options}`;
-      console.log(this.API_KEY);
-
-      fetch(this.API_KEY)
-        .then(response => {
-          if (response.status !== 200) {
-            new Error(response.statusText);
-          }
-          return Promise.resolve(response);
-        })
-        // .then(response => response.json())
-        .then(response => {
-          return response;
-        });
-    }
+      return this.API_KEY;
+    },
   },
   watch: {
     filterData: {
-      handler: function(data) {
-        let query = [];
-        let options = "";
+      handler(data) {
+        const query = [];
+        let options = '';
 
         for (const key in data) {
           if (data[key].length !== 0) {
@@ -128,18 +116,21 @@ export default {
               query.push(`${key}=${data[key][index]}`);
             }
           }
-          options = `?${query.join("&")}`;
+          options = `?${query.join('&')}`;
         }
 
         if (query.length === 0) {
-          options = "";
+          options = '';
         }
 
         this.getRequest(options);
       },
-      deep: true
-    }
-  }
+      deep: true,
+    },
+  },
+  updated() {
+    this.$store.dispatch('goods/getProducts', this.API_KEY);
+  },
 };
 </script>
 
@@ -168,5 +159,3 @@ export default {
   }
 }
 </style>
-
-
