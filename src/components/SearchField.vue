@@ -1,19 +1,18 @@
 <template>
   <form action="#" class="search-form">
     <div class="input-wrapper">
-      <span>{{result}}</span>
       <label for="search">
         Search
-        <input type="search"
-               name="text"
-               value="result"
-               id="search"
-               placeholder="Type here"
-               v-model="value"
+        <input
+          type="search"
+          name="text"
+          value="result"
+          id="search"
+          placeholder="Type here"
+        />
       </label>
       <button id="search-btn">Search</button>
     </div>
-    <div class="value">{{searchValue}}</div>
   </form>
 </template>
 
@@ -23,8 +22,6 @@ export default {
   data() {
     return {
       searchValue: '',
-      value: '',
-      result: '',
     };
   },
 };

@@ -16,12 +16,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss">
-.wrapper {
-  max-width: 1345px;
-  margin: 80px auto;
-  padding: 0 60px;
-  display: flex;
-}
-</style>
