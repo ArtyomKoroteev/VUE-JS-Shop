@@ -22,11 +22,12 @@
 
 export default {
   name: 'product-items',
+  // props: {
+  //   product: Object,
+  // },
   data() {
     return {
       product: {},
-      // API_KEY: 'https://8625794d-609a-4ae2-9a51-c8768b684b2b.mock.pstmn.io/vue-shop',
-      // API_KEY: "http://www.mocky.io/v2/5d6d300c30000058008fbade",
       API_KEY: 'http://localhost:3000/shop',
       title: 'product',
       showModal: false,
@@ -50,74 +51,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss">
-
-.product-section {
-  width: 100%;
-}
-.cards-container {
-  display: flex;
-  flex-wrap: wrap;
-  padding: 0 30px;
-  .card {
-    width: 31%;
-    margin: 0 3.1% 30px 0;
-    color: #000;
-    border: 1px solid #e4e4e4;
-    border-bottom: 4px solid #3cc3b5;
-    text-align: left;
-    text-decoration: none;
-    overflow: hidden;
-
-    &:nth-child(3n+3) {
-      margin: 0 0 30px;
-    }
-
-    @media screen and (max-width: 1280px) {
-      width: 48%;
-    }
-
-    &:hover {
-      .card-image {
-        transform: scale(1.05) rotate(-5deg);
-      }
-    }
-
-    .card-image {
-      margin: 0 0 20px;
-      padding: 20px 0 0;
-      text-align: center;
-      transition: transform 0.5s ease;
-      img {
-        will-change: transform;
-        max-width: 300px;
-      }
-    }
-
-    .card-stuff-container {
-      padding: 0 12px 20px;
-      .card-title {
-        display: block;
-        text-transform: uppercase;
-        text-decoration: none;
-        color: gray;
-        font-weight: bold;
-        letter-spacing: -1px;
-        margin: 0 0 15px;
-
-        &:hover {
-          color: darken(gray, 15%);
-        }
-      }
-
-      .card-price {
-        display: block;
-        font-weight: bold;
-        font-size: 18px;
-        margin: 0 0 15px;
-      }
-    }
-  }
-}
-</style>

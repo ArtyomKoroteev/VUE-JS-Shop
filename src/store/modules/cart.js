@@ -22,6 +22,7 @@ export default {
         });
       } else {
         productItem.productQuantity += 1;
+        // eslint-disable-next-line max-len
         productItem.productTotalPrice = Number(product.productPrice) * Number(productItem.productQuantity);
       }
       state.totalCartQuantity += 1;
@@ -41,12 +42,14 @@ export default {
       if (value > 1) {
         state.totalCartQuantity -= Number(product.productQuantity);
         productItem.productQuantity = parseInt(Number(value), 10);
+        // eslint-disable-next-line max-len
         productItem.productTotalPrice = Number(product.productPrice) * Number(productItem.productQuantity);
         state.totalCartQuantity += Number(product.productQuantity);
       } else {
         const valueError = 1;
         state.totalCartQuantity -= Number(product.productQuantity);
         productItem.productQuantity = parseInt(Number(valueError), 10);
+        // eslint-disable-next-line max-len
         productItem.productTotalPrice = Number(product.productPrice) * Number(productItem.productQuantity);
         state.totalCartQuantity += Number(product.productQuantity);
       }
@@ -60,6 +63,7 @@ export default {
         case 1:
           state.totalCartQuantity -= Number(product.productQuantity);
           productItem.productQuantity += 1;
+          // eslint-disable-next-line max-len
           productItem.productTotalPrice = Number(product.productPrice) * Number(productItem.productQuantity);
           state.totalCartQuantity += Number(product.productQuantity);
           break;
@@ -67,6 +71,7 @@ export default {
           if (product.productQuantity > 1) {
             state.totalCartQuantity -= Number(product.productQuantity);
             productItem.productQuantity -= 1;
+            // eslint-disable-next-line max-len
             productItem.productTotalPrice = Number(product.productPrice) * Number(productItem.productQuantity);
             state.totalCartQuantity += Number(product.productQuantity);
           }
