@@ -133,29 +133,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss">
-.filter-container {
-  max-width: 230px;
-  width: 100%;
-
-  .group-wrapper {
-    display: flex;
-    text-align: left;
-    margin-bottom: 20px;
-    border-color: #3cc3b5;
-
-    .group-title {
-      font-size: 22px;
-      margin-bottom: 15px;
-    }
-    label {
-      display: flex;
-      align-items: center;
-      input[type="checkbox"] {
-        margin-right: 5px;
-      }
-    }
-  }
-}
-</style>
